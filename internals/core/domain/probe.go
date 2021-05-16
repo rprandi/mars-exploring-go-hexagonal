@@ -54,9 +54,9 @@ func (p *Probe) Run(grid Grid) error {
 			x, y := p.NextStep()
 			if grid.isValidProbeMovement(x, y) {
 				p.moveForward()
-			} else {
-				return errors.New("probe movement is invalid")
+				continue
 			}
+			return errors.New("probe movement is invalid")
 		}
 	}
 	return nil
@@ -117,7 +117,7 @@ func (p *Probe) moveForward() {
 }
 
 func isValidCoordinate(coordinate int) bool {
-	if coordinate > 0 {
+	if coordinate >= 0 {
 		return true
 	}
 
