@@ -23,63 +23,121 @@ var ValidDirections = []string{North, South, East, West}
 var ValidCommands = []string{TurnRight, TurnLeft, MoveForward}
 
 type Probe struct {
-	coordinateX int
-	coordinateY int
-	direction   string
-	commands    string
+	CoordinateX int
+	CoordinateY int
+	Direction   string
+	Commands    string
 }
 
 func NewProbe(coordinateX int, coordinateY int, direction string, commands string) (Probe, error) {
-	err := isValidCoordinate(coordinateX)
-	if err != nil {
-		return Probe{}, err
+	if isValidCoordinate(coordinateX) && isValidCoordinate(coordinateY) && isValidDirection(direction) && isValidCommands(commands) {
+		return Probe{
+			CoordinateX: coordinateX,
+			CoordinateY: coordinateY,
+			Direction:   direction,
+			Commands:    commands,
+		}, nil
 	}
 
-	err = isValidCoordinate(coordinateY)
-	if err != nil {
-		return Probe{}, err
-	}
-
-	err = isValidDirection(direction)
-	if err != nil {
-		return Probe{}, err
-	}
-
-	err = isValidCommands(commands)
-	if err != nil {
-		return Probe{}, err
-	}
-
-	return Probe{
-		coordinateX: coordinateX,
-		coordinateY: coordinateY,
-		direction:   direction,
-		commands:    commands,
-	}, nil
+	return Probe{}, errors.New("invalid probe initialization")
 }
 
-func isValidCoordinate(coordinate int) error {
+// For each command, check if it is valid and execute
+func (p *Probe) Run(grid Grid) error {
+	for _, command := range strings.Split(p.Commands, EmptyString) {
+		switch command {
+		case TurnRight:
+			p.rotateRight()
+		case TurnLeft:
+			p.rotateLeft()
+		case MoveForward:
+			x, y := p.NextStep()
+			if grid.isValidProbeMovement(x, y) {
+				p.moveForward()
+			} else {
+				return errors.New("probe movement is invalid")
+			}
+		}
+	}
+	return nil
+}
+
+func (p *Probe) rotateRight() {
+	switch p.Direction {
+	case North:
+		p.Direction = East
+	case South:
+		p.Direction = West
+	case East:
+		p.Direction = South
+	case West:
+		p.Direction = North
+	}
+}
+
+func (p *Probe) rotateLeft() {
+	switch p.Direction {
+	case North:
+		p.Direction = West
+	case South:
+		p.Direction = East
+	case East:
+		p.Direction = North
+	case West:
+		p.Direction = South
+	}
+}
+
+func (p *Probe) NextStep() (int, int) {
+	switch p.Direction {
+	case North:
+		return p.CoordinateX, p.CoordinateY + 1
+	case South:
+		return p.CoordinateX, p.CoordinateY - 1
+	case East:
+		return p.CoordinateX + 1, p.CoordinateY
+	case West:
+		return p.CoordinateX - 1, p.CoordinateY
+	}
+
+	return -1, -1
+}
+
+func (p *Probe) moveForward() {
+	switch p.Direction {
+	case North:
+		p.CoordinateY += 1
+	case South:
+		p.CoordinateY -= 1
+	case East:
+		p.CoordinateX += 1
+	case West:
+		p.CoordinateX -= 1
+	}
+}
+
+func isValidCoordinate(coordinate int) bool {
 	if coordinate > 0 {
-		return nil
+		return true
 	}
 
-	return errors.New("invalid coordinate for Probe")
+	return false
 }
 
-func isValidDirection(direction string) error {
+func isValidDirection(direction string) bool {
 	for _, validDirection := range ValidDirections {
 		if validDirection == direction {
-			return nil
+			return true
 		}
 	}
 
-	return errors.New("invalid direction for Probe")
+	return false
 }
 
 // Delete all valid commands from the command string -> result should be empty
-func isValidCommands(command string) error {
+func isValidCommands(command string) bool {
 	if command == EmptyString {
-		return errors.New("invalid command for Probe")
+		return false
 	}
 
 	for _, ValidCommand := range ValidCommands {
@@ -87,8 +145,8 @@ func isValidCommands(command string) error {
 	}
 
 	if command == EmptyString { // Yes this comparison is duplicated, because it is post ReplaceAll
-		return nil
+		return true
 	}
 
-	return errors.New("invalid command for Probe")
+	return false
 }
