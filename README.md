@@ -1,6 +1,10 @@
 # Mars Exploring
 A repo to implement a programming challenge.
 
+## Requirements
+
+- Golang 1.16.3
+
 ## The Challenge
 
 ### The problem
@@ -62,6 +66,12 @@ MMRMMRMRRM
 - Program must output to a file or terminal/cli 
 - Any rules not specified here can be implemented as you wish (eg. What happens when 2 probes collide?) 
 
+### Assumptions
+
+- It the probe moves outside the boundaries of the grid, it should raise an error.
+- If the probes collide, it should raise an error
+- If the probe is placed outside of the grid, it should raise an error
+
 ## Discussions and Considerations
 
 ### Why Golang ?
@@ -89,3 +99,30 @@ I will use unit and integration tests as I see fit throughout the development.
 
 - I am using GoLand IDE
 - I will leave goimport / golang-lint / gofmt running on the background (trigger = save) on my IDE
+
+### Functional requirements
+
+![Grid](./imgs/grid.png?raw=true "Grid")
+
+- Create a new grid
+
+Given a coordinate (X, Y) that is the top-right corner it should create a new grid. It should validate the size of the grid to only allow positive integers.
+
+- Place probe
+
+Given a coordinate (X, Y) it should accept a probe in that position. It should check for grid boundaries and other probes' collision.
+
+- Turn probe
+
+Given a probe and an direction (L, R), it should rotate the probe 90 degrees to a new direction
+
+- Move probe
+
+Given a probe, it should move it one step in the direction it is facing. It should check for grid boundaries and other probes' collision.
+
+- Get probe
+
+Given a probe, it should return the current position and direction.
+
+
+### Glossary
