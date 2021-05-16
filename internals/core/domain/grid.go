@@ -7,3 +7,10 @@ type Grid struct {
 	horizontalSize int
 	verticalSize   int
 }
+
+func NewGrid(horizontalSize int, verticalSize int) Grid {
+	return Grid{
+		horizontalSize: horizontalSize,
+		verticalSize:   verticalSize,
+	}
+}
