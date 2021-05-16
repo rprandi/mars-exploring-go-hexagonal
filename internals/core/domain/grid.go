@@ -32,7 +32,7 @@ func (g Grid) isValidProbeMovement(xProbe int, yProbe int) bool {
 }
 
 func IsValidInitialGridSize(x int, y int) bool {
-	if (x > 1) && (y > 1) { //TODO teste inteiro
+	if (x > 0) && (y > 0) { //TODO teste inteiro
 		return true
 	}
 

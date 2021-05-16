@@ -2,7 +2,7 @@ package mission_service
 
 import "github.com/rprandi/mars-exploring-go-hexagonal/internals/core/domain"
 
-// Entrada para o core, cada um implementa a porta
+// Entrada para o core
 
 type MissionService struct {
 	Mission domain.Mission
