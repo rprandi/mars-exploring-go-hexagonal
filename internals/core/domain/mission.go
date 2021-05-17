@@ -20,24 +20,13 @@ func NewMission() Mission {
 	return Mission{State: READY}
 }
 
-func (m *Mission) SetGridSize(horizontalSize int, verticalSize int) error {
-	grid, err := NewGrid(horizontalSize, verticalSize)
-	if err != nil {
-		m.State = OVER
-		return err
-	}
-
+func (m *Mission) SetGrid(grid Grid) error {
 	m.Grid = &grid
 
 	return nil
 }
 
-func (m *Mission) AddProbe(x int, y int, direction string, commands string) error {
-	probe, err := NewProbe(x, y, direction, commands)
-	if err != nil {
-		return err
-	}
-
+func (m *Mission) AddProbe(probe Probe) error {
 	m.Probes = append(m.Probes, &probe)
 
 	return nil
@@ -68,4 +57,8 @@ func (m Mission) IsOver() bool {
 		return true
 	}
 	return false
+}
+
+func (m *Mission) ReportMission() []*Probe {
+	return m.Probes
 }

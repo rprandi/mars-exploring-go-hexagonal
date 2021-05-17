@@ -28,7 +28,7 @@ func TestNewMission(t *testing.T) {
 func TestMission_SetGrid_Valid(t *testing.T) {
 	mission := NewMission()
 
-	err := mission.SetGridSize(30, 40)
+	err := mission.SetGrid(30, 40)
 
 	assert.NilError(t, err)
 	assert.Equal(t, *mission.Grid, ValidGrid())
@@ -37,7 +37,7 @@ func TestMission_SetGrid_Valid(t *testing.T) {
 func TestMission_SetGrid_Invalid(t *testing.T) {
 	mission := NewMission()
 
-	err := mission.SetGridSize(-1, -1)
+	err := mission.SetGrid(-1, -1)
 
 	assert.Error(t, err, "Invalid grid")
 	assert.Equal(t, mission.State, OVER)
@@ -46,7 +46,7 @@ func TestMission_SetGrid_Invalid(t *testing.T) {
 func TestMission_RunProbes_Valid(t *testing.T) {
 	mission := NewMission()
 
-	mission.SetGridSize(30, 40)
+	mission.SetGrid(30, 40)
 	mission.AddProbe(10, 10, North, "MMM")
 
 	expectedProbe, _ := NewProbe(10, 13, North, "MMM")
@@ -62,7 +62,7 @@ func TestMission_RunProbes_AlreadyOver_Invalid(t *testing.T) {
 
 	mission.State = OVER
 
-	mission.SetGridSize(30, 40)
+	mission.SetGrid(30, 40)
 	mission.AddProbe(10, 10, North, "MMM")
 
 	err := mission.RunProbes()
@@ -85,7 +85,7 @@ func TestMission_RunProbes_NoProbes_Invalid(t *testing.T) {
 
 	mission.State = OVER
 
-	mission.SetGridSize(30, 40)
+	mission.SetGrid(30, 40)
 
 	err := mission.RunProbes()
 
@@ -97,7 +97,7 @@ func TestMission_RunProbes_ProbeCantRun_Invalid(t *testing.T) {
 
 	mission.State = OVER
 
-	mission.SetGridSize(30, 40)
+	mission.SetGrid(30, 40)
 	mission.AddProbe(30, 40, North, "MMM")
 
 	err := mission.RunProbes()

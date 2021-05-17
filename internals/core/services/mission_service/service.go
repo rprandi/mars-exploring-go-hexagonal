@@ -1,25 +1,52 @@
 package mission_service
 
-import "github.com/rprandi/mars-exploring-go-hexagonal/internals/core/domain"
+import (
+	"github.com/rprandi/mars-exploring-go-hexagonal/internals/core/ports"
+
+	"github.com/rprandi/mars-exploring-go-hexagonal/internals/core/domain"
+)
 
 // Entrada para o core
 
 type MissionService struct {
-	Mission domain.Mission
+	Mission       domain.Mission
+	InputHandler  ports.InputHandler
+	OutputHandler ports.OutputHandler
 }
 
-func NewMissionService() MissionService {
-	return MissionService{}
+func NewMissionService(inputHandler ports.InputHandler, outputHandler ports.OutputHandler) *MissionService {
+	return &MissionService{
+		InputHandler:  inputHandler,
+		OutputHandler: outputHandler,
+	}
 }
 
-func (ms *MissionService) CreateMission() {
+func (ms *MissionService) CreateMission() error {
 	mission := domain.NewMission()
 
 	ms.Mission = mission
+
+	grid, err := ms.InputHandler.ReadGrid()
+	if err != nil {
+		return err
+	}
+
+	ms.Mission.SetGrid(grid)
+
+	probes, err := ms.InputHandler.ReadProbes()
+	if err != nil {
+		return err
+	}
+
+	for _, probe := range probes {
+		ms.Mission.AddProbe(probe)
+	}
+
+	return nil
 }
 
-func (ms *MissionService) SetGrid(x int, y int) error {
-	err := ms.Mission.SetGridSize(x, y)
+func (ms *MissionService) SetGrid(grid domain.Grid) error {
+	err := ms.Mission.SetGrid(grid)
 	if err != nil {
 		return err
 	}
@@ -27,8 +54,8 @@ func (ms *MissionService) SetGrid(x int, y int) error {
 	return nil
 }
 
-func (ms *MissionService) AddProbe(x int, y int, direction string, commands string) error {
-	err := ms.Mission.AddProbe(x, y, direction, commands)
+func (ms *MissionService) AddProbe(probe domain.Probe) error {
+	err := ms.Mission.AddProbe(probe)
 	if err != nil {
 		return err
 	}
@@ -36,7 +63,7 @@ func (ms *MissionService) AddProbe(x int, y int, direction string, commands stri
 	return nil
 }
 
-func (ms *MissionService) RunProbes() error {
+func (ms *MissionService) RunMission() error {
 	err := ms.Mission.RunProbes()
 	if err != nil {
 		return err
@@ -44,7 +71,6 @@ func (ms *MissionService) RunProbes() error {
 	return nil
 }
 
-func (ms *MissionService) ReportMission() error {
-	// TODO How to report the mission ?
-	return nil
+func (ms *MissionService) ReportMission() {
+	ms.OutputHandler.WriteReport(ms.Mission)
 }

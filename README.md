@@ -5,6 +5,21 @@ A repo to implement a programming challenge.
 
 - Golang 1.16.3
 
+## Running the program
+
+- Chose the Handlers you want (Cli, Filesystem) on main.go
+- Check examples of input and output in this readme file.
+
+obs: If using Cli, write `end` instead of a new set of probes to start processing, eg:
+
+5 5
+
+1 2 N
+
+LMLMLMLMM
+
+end
+
 ## The Challenge
 
 ### The problem
@@ -71,6 +86,7 @@ MMRMMRMRRM
 - It the probe moves outside the boundaries of the grid, it should raise an error.
 - If the probes collide, it should raise an error
 - If the probe is placed outside of the grid, it should raise an error
+- The probe returns to the ship to wait for a new probe to be deployed (= No collision)
 
 ## Discussions and Considerations
 
