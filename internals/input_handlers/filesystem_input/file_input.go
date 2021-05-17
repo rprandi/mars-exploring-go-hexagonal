@@ -16,7 +16,7 @@ type InputHandler struct {
 	File           string
 }
 
-func NewInputCLIHandler(file string) *InputHandler {
+func NewInputHandler(file string) *InputHandler {
 	return &InputHandler{File: file}
 }
 
@@ -57,6 +57,13 @@ func (ch *InputHandler) ReadProbes() ([]domain.Probe, error) {
 	defer f.Close()
 
 	var probes []domain.Probe
+
+	// Since we Reopened the File, we need to consume the grid size.
+	// Alternatively, we could save the file opened in the struct, but it is better to close it with defer f.close()
+	// After each function. So let's just consume and discard the grid for now
+	var gridSize int
+	_, _ = fmt.Fscanf(f, "%d", &gridSize)
+	_, _ = fmt.Fscanf(f, "%d", &gridSize)
 
 	for {
 		var xProbe int

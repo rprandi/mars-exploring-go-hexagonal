@@ -14,11 +14,11 @@ func main() {
 	//missionService := mission_service.NewMissionService(CLIInputHandler, CLIOutputHandler)
 
 	// Both handlers below handle file input/output.  Uncomment the 3 lines below for file input/output
-	FileInputHandler := filesystem_input.NewInputCLIHandler("input.txt")
+	FileInputHandler := filesystem_input.NewInputHandler("input.txt")
 	FileOutputHandler := filesystem_output.NewOutputHandler("output.txt")
 	missionService := mission_service.NewMissionService(FileInputHandler, FileOutputHandler)
 
 	missionService.CreateMission()
-	//missionService.RunMission()
+	missionService.RunMission()
 	missionService.ReportMission()
 }
