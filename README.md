@@ -1,3 +1,21 @@
+- [Mars Exploring](#mars-exploring)
+  * [Requirements](#requirements)
+  * [Running the program](#running-the-program)
+  * [The Challenge](#the-challenge)
+    + [The problem](#the-problem)
+    + [Input](#input)
+      - [Example of input](#example-of-input)
+    + [Output](#output)
+      - [Example of output](#example-of-output)
+    + [Rules](#rules)
+    + [Assumptions](#assumptions)
+  * [Discussions and Considerations](#discussions-and-considerations)
+    + [Why Golang ?](#why-golang--)
+    + [About testing](#about-testing)
+    + [Configuration](#configuration)
+    + [The Grid and functional requirements](#the-grid-and-functional-requirements)
+    + [Glossary](#glossary)
+
 # Mars Exploring
 A repo to implement a programming challenge.
 
@@ -114,7 +132,7 @@ I would use BDD but the libs (eg. Ginkgo) are not allowed per the rules.
 - I am using GoLand IDE
 - I will leave goimport / golang-lint / gofmt running on the background (trigger = save) on my IDE
 
-### The Grid
+### The Grid and functional requirements
 
 ![Grid](./imgs/grid.png?raw=true "Grid")
 
