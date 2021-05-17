@@ -18,7 +18,6 @@ A repo to implement a programming challenge.
     + [About testing](#about-testing)
     + [Configuration](#configuration)
     + [The Grid and functional requirements](#the-grid-and-functional-requirements)
-    + [Glossary](#glossary)
 
 ## Requirements
 
@@ -43,9 +42,9 @@ end
 
 ### The problem
 
-A set of probes translate was sent by NASA to Mars and will land on a plateau. 
+A set of probes was sent by NASA to Mars and will land on a plateau. 
 
-The plateau is rectangular and must be explored by the probe with the built-in cameras.
+The plateau is rectangular grid and must be explored by the probe with the built-in cameras.
 
 The position and direction of the probe are represented by a set of coordinates (x,y) and a letter representing the direction:
 - N is north
@@ -148,5 +147,3 @@ I would use BDD but the libs (eg. Ginkgo) are not allowed per the rules.
 - Turn probe
 - Move probe forward
 - Get probe
-
-### Glossary
