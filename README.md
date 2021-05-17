@@ -51,6 +51,8 @@ Second line (onwards): Probe information, 2 lines per probe:
 - First line is the initial position
 - Second line is the set of instructions to explore the plateau
 
+Finish with an End
+
 #### Example of input
 
 5 5
@@ -62,6 +64,8 @@ LMLMLMLMM
 3 3 E
 
 MMRMMRMRRM
+
+end
 
 ### Output
 
@@ -100,45 +104,30 @@ It will also allow me to explicitly use SOLID principles as Goland has structs w
 
 ### About testing
 
-I will use TDD because it will allow me to iterate over the problem adding new use cases and then refactor when those tests pass. 
+I will use TDD on the core because it will allow me to iterate over the problem adding new use cases and then refactor when those tests pass. 
 This will allow me to refactor the code easily as I solve the problem.
 
-I will use BDD because this in type of challenge is easy to come up with new use cases, and i will have the output well described. 
-This will allow me to add new behaviour to the tests easily for TDD.ginkgo
-I will use Ginkgo lib in Go because of my familiarity with this tool. It can be easily read by developers not used to it.
-
-The focus of TDD is not the output, but the testing. The focus of BDD is the output. They complement each other well.
-
-I will use unit and integration tests as I see fit throughout the development.
+I would use BDD but the libs (eg. Ginkgo) are not allowed per the rules.
 
 ### Configuration
 
 - I am using GoLand IDE
 - I will leave goimport / golang-lint / gofmt running on the background (trigger = save) on my IDE
 
-### Functional requirements
+### The Grid
 
 ![Grid](./imgs/grid.png?raw=true "Grid")
 
-- Create a new grid
+- Create a New Mission
+- Run mission
+- Get Mission Report
+    
+- Create a new grid with coordinate (X, Y)
+- Get Grid
 
-Given a coordinate (X, Y) that is the top-right corner it should create a new grid. It should validate the size of the grid to only allow positive integers.
-
-- Place probe
-
-Given a coordinate (X, Y) it should accept a probe in that position. It should check for grid boundaries and other probes' collision.
-
+- Place probe on coordinate (X, Y) with a direction and commands
 - Turn probe
-
-Given a probe and an direction (L, R), it should rotate the probe 90 degrees to a new direction
-
-- Move probe
-
-Given a probe, it should move it one step in the direction it is facing. It should check for grid boundaries and other probes' collision.
-
+- Move probe forward
 - Get probe
-
-Given a probe, it should return the current position and direction.
-
 
 ### Glossary
