@@ -1,3 +1,7 @@
+# Mars Exploring
+A repo to implement a programming challenge.
+
+# Table of Contents
 - [Mars Exploring](#mars-exploring)
   * [Requirements](#requirements)
   * [Running the program](#running-the-program)
@@ -15,9 +19,6 @@
     + [Configuration](#configuration)
     + [The Grid and functional requirements](#the-grid-and-functional-requirements)
     + [Glossary](#glossary)
-
-# Mars Exploring
-A repo to implement a programming challenge.
 
 ## Requirements
 
